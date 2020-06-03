@@ -1,12 +1,31 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+
 import loginImage from './static/login.svg'
 import './static/style.scss'
+
+
 export function Login(props){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const onUsernameChange = (event) => {
-        //setUsername(event.)
+        setUsername(event.target.value)
+    }
+
+    const onPasswordChange = (event) => {
+        setPassword(event.target.value)
+    }
+
+    const submitCredentials = (event) => {
+        event.preventDefault()
+
+        axios.post(
+            `http://localhost:8000/login`, 
+            { 'username': username, "password": password})
+            .then(res => {
+                console.log(res)
+            })
     }
     return  (
         <div className="base-container">
@@ -16,14 +35,14 @@ export function Login(props){
                 <div className="form">
                     <form className="form-group">
                         <label>Username</label>
-                        <input value={username} type="text" name="username" placeholder="Username"/>
+                        <input value={username} onChange={onUsernameChange} type="text" name="username" placeholder="Username"/>
                         <label>Password</label>
-                        <input value={password} type="password" name="password" placeholder="Password"/>
+                        <input value={password} onChange={onPasswordChange} type="password" name="password" placeholder="Password"/>
                     </form>
                 </div>
             </div>
             <div className="footer">
-                <button type="button" className="btn">
+                <button onClick={submitCredentials} type="button" className="btn">
                     Login
                 </button>
             </div>
