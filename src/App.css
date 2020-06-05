@@ -3,14 +3,5 @@
 .App {
     display: flex;
     justify-content: center;
-    align-content: center;
-}
-.login-panel {
-    padding: 20px;
-    border-radius: 1%;
-    -moz-box-shadow: 0 0 6px #aaa8a8;
-    -webkit-box-shadow: 0 0 6px #aaa8a8;
-    box-shadow: 0 0 6px #aaa8a8;    
-    display: inline-block;
-
+    align-items: center;
 }

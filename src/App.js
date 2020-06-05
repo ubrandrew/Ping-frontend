@@ -7,9 +7,7 @@ function App() {
   return (
     <Router>
         <div className="App">
-            <div className="login-panel">
-                <Route path="/login" exact component={Login} />
-            </div>
+            <Route path="/login" exact component={Login} />
         </div>
     </Router>
   );
