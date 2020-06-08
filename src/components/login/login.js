@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-
-import loginImage from './static/login.svg'
-import './static/style.scss'
+import {Redirect, useHistory} from 'react-router-dom';
+import loginImage from './static/login.svg';
+import './static/style.scss';
+import auth from '../../auth/auth';
 
 
 export function Login(props){
@@ -20,29 +21,17 @@ export function Login(props){
 
     const submitCredentials = (event) => {
         event.preventDefault()
+        auth.login(
+            {
+                'username': username,
+                'password' : password
+            },
+            () => {
+                props.history.push("/")
+            }
+        )
+
         
-
-        axios.post(
-            `http://localhost:8000/login`, 
-            { 
-                'username': username, 
-                "password": password,
-            })
-            .then(res => {
-                console.log(res)
-            })
-    }
-
-    const otherEndpoint = (event) => {
-        event.preventDefault()
-        axios.defaults.withCredentials = true
-
-        axios.get(
-            `http://localhost:8000/temp`, 
-           )
-            .then(res => {
-                console.log(res)
-            })
     }
 
     return  (
@@ -62,10 +51,6 @@ export function Login(props){
             <div className="footer">
                 <button onClick={submitCredentials} type="button" className="btn">
                     Login
-                </button>
-
-                <button onClick={otherEndpoint} type="button" className="btn">
-                    Test endpoint
                 </button>
             </div>
         </div>
