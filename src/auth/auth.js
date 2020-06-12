@@ -20,6 +20,18 @@ class Auth {
         })
     }
 
+    signup(credentials, cb) {
+        axios.post("/signup", credentials)
+        .then(res => {
+            console.log(res)
+            this.authenticated = true;
+            cb();
+        })
+        .catch( err => {
+            throw err
+        })
+    }
+
     logout(cb) {
         this.authenticated = false;
         cb();
