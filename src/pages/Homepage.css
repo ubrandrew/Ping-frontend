@@ -1,0 +1,9 @@
+.wrapper {
+    display: flex;
+    position: relative;
+}
+
+.main-content {
+    width: 100%;
+    margin-left: 200px;
+}

@@ -1,0 +1,14 @@
+.sidebar-link{
+    font-size: 1.1em;
+    font-weight: 500;
+    text-decoration: none;
+    color: rgba(63, 63, 128, 0.582);
+    padding: 40px 0;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.sidebar-link:hover{
+    background-color: rgb(228, 228, 255);
+}

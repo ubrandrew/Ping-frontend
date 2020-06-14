@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { PlaidLink } from "react-plaid-link";
 
-export default function Accounts(props) {
+export default function LinkBankItem(props) {
     const [accounts, setAccounts] = useState([
         {
             accountName: "PNC Reserve",
