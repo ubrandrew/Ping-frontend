@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import auth from '../auth/auth'
 import Sidebar from '../components/Sidebar';
+import { AuthContext } from "../auth/auth";
 
-export const ProtectedRoute = ({component: Component, ...rest}) => {
+const ProtectedRoute = ({component: Component, ...rest}) => {
+    const {currentUser} = useContext(AuthContext);
     return (
-        <Route {...rest} render={
-            (props) => {
-                if (auth.isAuthenticated()) {
-                    return (
-                        <div>
-                            <Sidebar/>
-                            <Component {...props} />
-                        </div>
-                    )
-                } else {
-                    return <Redirect to="/login"/>
+        <Route 
+            {...rest} 
+            render={
+                (props) => {
+                    if (!!currentUser) {
+                        return (
+                            <div>
+                                <Sidebar/>
+                                <Component {...props} />
+                            </div>
+                        )
+                    } else {
+                        return <Redirect to="/login"/>
+                    }
                 }
             }
-        }/>
+        />
     )
 }
+
+export default ProtectedRoute;

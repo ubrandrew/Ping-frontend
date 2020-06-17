@@ -1,45 +1,22 @@
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import firebaseClient from "./firebase.js";
 
+export const AuthContext = React.createContext();
 
-class Auth {
-    constructor() {
-        this.authenticated = false;
-    }
+export const AuthProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState(null);
 
-    login(credentials, cb) {
-        axios.post(
-            `http://localhost:8000/login`, 
-            credentials)
-        .then(res => {
-            console.log(res)
-            this.authenticated = true;
-            cb();
-        })
-        .catch( err => {
-            throw err
-        })
-    }
+  useEffect(() => {
+    firebaseClient.auth().onAuthStateChanged(setCurrentUser);
+  }, []);
 
-    signup(credentials, cb) {
-        axios.post("/signup", credentials)
-        .then(res => {
-            console.log(res)
-            this.authenticated = true;
-            cb();
-        })
-        .catch( err => {
-            throw err
-        })
-    }
-
-    logout(cb) {
-        this.authenticated = false;
-        cb();
-    }
-
-    isAuthenticated() {
-        return this.authenticated;
-    }
-}
-
-export default new Auth();
+  return (
+    <AuthContext.Provider
+      value={{
+        currentUser,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
