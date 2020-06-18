@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "../auth/auth";
+import firebaseClient from "../auth/firebase";
 
 const AccountsPage = (props) => {
   const [accounts, setAccounts] = useState([]);
 
+  const { currentUser } = useContext(AuthContext);
+
+  //   if (currentUser) {
+
+  //   }
   const otherEndpoint = (event) => {
     event.preventDefault();
     axios.defaults.withCredentials = true;
@@ -14,14 +21,34 @@ const AccountsPage = (props) => {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/bank_items`).then((res) => {
-      console.log(res.data);
-      let arr = res.data.map((elem) => {
-        return elem.institution.name;
+    firebaseClient
+      .auth()
+      .currentUser.getIdToken(/* forceRefresh */ true)
+      .then(function (idToken) {
+        // Send token to your backend via HTTPS
+        // ...
+        console.log(idToken);
+
+        axios
+          .get(`http://localhost:8000/bank_items`, {
+            headers: { Authorization: `Bearer ${idToken}` },
+          })
+          .then((res) => {
+            console.log(res.data);
+            let arr = res.data.map((elem) => {
+              return elem.institution.name;
+            });
+            setAccounts(arr);
+            console.log(arr);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch(function (error) {
+        // Handle error
+        console.log(error);
       });
-      setAccounts(arr);
-      console.log(arr);
-    });
   }, []);
 
   return (
