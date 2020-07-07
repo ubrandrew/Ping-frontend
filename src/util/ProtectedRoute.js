@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
+import AuthenticatedPage from "../pages/AuthenticatedPage";
 import { AuthContext } from "../auth/auth";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
@@ -11,10 +11,9 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       render={(props) => {
         if (!!currentUser) {
           return (
-            <div>
-              <Sidebar />
+            <AuthenticatedPage>
               <Component {...props} />
-            </div>
+            </AuthenticatedPage>
           );
         } else {
           return <Redirect to="/login" />;

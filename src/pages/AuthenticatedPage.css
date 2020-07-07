@@ -1,9 +1,12 @@
 .wrapper {
+  left: 200px;
   display: flex;
   position: relative;
 }
 
 .main-content {
   width: 100%;
-  margin-left: 200px;
+  padding-left: 60px;
+  padding-top: 70px;
+  position: relative;
 }

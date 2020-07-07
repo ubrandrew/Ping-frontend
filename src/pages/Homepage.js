@@ -4,8 +4,6 @@ import axios from "axios";
 
 import LinkBankItem from "../components/LinkBankItem";
 
-import "./Homepage.css";
-
 export default function Homepage() {
   const otherEndpoint = (event) => {
     event.preventDefault();
@@ -16,14 +14,12 @@ export default function Homepage() {
     });
   };
   return (
-    <div className="wrapper">
-      <div className="main-content">
-        <h1>Homepage</h1>
-        <button onClick={otherEndpoint} type="button" className="btn">
-          Test endpoint
-        </button>
-        <LinkBankItem />
-      </div>
+    <div>
+      <h1>Homepage</h1>
+      <button onClick={otherEndpoint} type="button" className="btn">
+        Test endpoint
+      </button>
+      <LinkBankItem />
     </div>
   );
 }

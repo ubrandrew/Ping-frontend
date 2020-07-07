@@ -1,25 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { PlaidLink } from "react-plaid-link";
+import firebaseClient from "../auth/firebase";
+import { AuthContext } from "../auth/auth";
 
 export default function LinkBankItem(props) {
-  const [accounts, setAccounts] = useState([
-    {
-      accountName: "PNC Reserve",
-    },
-    {
-      accountName: "PNC Savings",
-    },
-    {
-      accountName: "Chase Checking",
-    },
-    {
-      accountName: "Bank of America Checking",
-    },
-    {
-      accountName: "Chase Savings",
-    },
-  ]);
+  const [accounts, setAccounts] = useState([]);
 
   // useEffect(() => {
   //     axios.get(`http://localhost:8000/accounts`)
@@ -32,10 +18,27 @@ export default function LinkBankItem(props) {
   // }, [])
 
   const handleOnSuccess = (public_token, metadata) => {
-    console.log(public_token);
-    axios.post(`http://localhost:8000/auth/exchange_token`, {
-      public_token: public_token,
-    });
+    firebaseClient
+      .auth()
+      .currentUser.getIdToken(/* forceRefresh */ true)
+      .then(function (idToken) {
+        console.log(public_token);
+        axios
+          .post(
+            `http://localhost:8000/auth/exchange_token`,
+            { public_token: public_token },
+            { headers: { Authorization: `Bearer ${idToken}` } }
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleOnExit = () => {};
