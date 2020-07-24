@@ -1,0 +1,46 @@
+.select-box {
+  display: flex;
+  width: 400px;
+}
+
+.select-box .option-box {
+  max-height: 0;
+  background-color: blueviolet;
+  color: white;
+  width: 100%;
+  opacity: 0;
+  transition: all 0.4s;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.select-box .option {
+  cursor: pointer;
+  padding: 12px 12px;
+}
+
+.select-box label {
+  cursor: pointer;
+  width: 100%;
+}
+
+.select-box .option:hover {
+  background: lightseagreen;
+}
+
+.select-box .option-box.active {
+  max-height: 240px;
+  opacity: 1;
+  overflow-y: scroll;
+}
+
+.select-box .option-box::-webkit-scrollbar {
+  background: blue;
+  width: 15px;
+  border-radius: 8px;
+}
+
+.select-box .option-box::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 15px;
+}

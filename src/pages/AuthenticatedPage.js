@@ -7,8 +7,8 @@ const AuthenticatedPage = ({ children, ...rest }) => {
   return (
     <>
       <Sidebar />
-      <div className="wrapper">
-        <div className="main-content">{children}</div>
+      <div className="wrapper overflow-auto bg-gray-200">
+        <div className="main-content h-screen">{children}</div>
       </div>
     </>
   );

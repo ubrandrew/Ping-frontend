@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getAuthToken } from "../util/firebaseUtil";
 import axios from "axios";
+import { getAuthToken } from "../util/firebaseUtil";
 
 const TransactionPanel = (props) => {
   const [activeAccount, setActiveAccount] = useState(props.activeAccount);
@@ -13,7 +13,7 @@ const TransactionPanel = (props) => {
       console.log(props.actinveAccount);
       console.log(props.activeItem);
       axios
-        .get(`http://localhost:8000/transactions`, {
+        .get(`transactions`, {
           params: {
             account_id: props.activeAccount,
             item_id: props.activeItem,
@@ -45,11 +45,11 @@ const TransactionPanel = (props) => {
             console.log(transaction);
             return (
               <li
-                value={transaction["transaction_id"]}
-                key={transaction["transaction_id"]}
+                value={transaction.transaction_id}
+                key={transaction.transaction_id}
                 onClick={selectTransaction}
               >
-                {transaction["transaction_name"]}
+                {transaction.transaction_name}
               </li>
             );
           })
@@ -58,7 +58,7 @@ const TransactionPanel = (props) => {
         )}
       </ul>
       {activeTransaction ? (
-        <div>{activeTransaction["amount"]}</div>
+        <div>{activeTransaction.amount}</div>
       ) : (
         <div>Select a transaction</div>
       )}

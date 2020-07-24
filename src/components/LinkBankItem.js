@@ -6,6 +6,7 @@ import { AuthContext } from "../auth/auth";
 
 export default function LinkBankItem(props) {
   const [accounts, setAccounts] = useState([]);
+  const webhookURL = process.env.PLAID_WEBHOOK_URL
 
   // useEffect(() => {
   //     axios.get(`http://localhost:8000/accounts`)
@@ -25,8 +26,8 @@ export default function LinkBankItem(props) {
         console.log(public_token);
         axios
           .post(
-            `http://localhost:8000/auth/exchange_token`,
-            { public_token: public_token },
+            `auth/exchange_token`,
+            { public_token },
             { headers: { Authorization: `Bearer ${idToken}` } }
           )
           .then((res) => {
@@ -55,7 +56,7 @@ export default function LinkBankItem(props) {
         publicKey="9a813a0812e9cd737aa5b6a5efd71e"
         onExit={handleOnExit}
         onSuccess={handleOnSuccess}
-        className="test"
+        webhook={webhookURL}
       >
         Open Link and connect your bank account!
       </PlaidLink>

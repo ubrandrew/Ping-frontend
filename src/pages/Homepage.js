@@ -9,7 +9,7 @@ export default function Homepage() {
     event.preventDefault();
     axios.defaults.withCredentials = true;
 
-    axios.get(`http://localhost:8000/bank_items`).then((res) => {
+    axios.get(`bank_items`).then((res) => {
       console.log(res);
     });
   };

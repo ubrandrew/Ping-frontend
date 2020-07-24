@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { getAuthToken } from "../util/firebaseUtil";
 import TransactionPanel from "./TransactionPanel";
-import axios from "axios";
 
 const FinancePanel = (props) => {
   const [accounts, setAccounts] = useState([]);
@@ -16,7 +16,7 @@ const FinancePanel = (props) => {
     console.log(props.activeAccount);
     console.log(props.activeItem);
     axios
-      .get(`http://localhost:8000/accounts?item_id=${props.activeItem}`, {
+      .get(`accounts?item_id=${props.activeItem}`, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -37,8 +37,14 @@ const FinancePanel = (props) => {
   };
 
   return (
-    <div>
-      <code>{props.activeItem}</code>
+    <div className="h-screen">
+      <div>
+        <div className="max-w-full h-full rounded overflow-hidden shadow-lg mr-12 mt-12 p-10">
+          asdf
+        </div>
+      </div>
+
+      {/* <code>{props.activeItem}</code>
       <ul>
         {accounts ? (
           accounts.map((account) => {
@@ -63,7 +69,7 @@ const FinancePanel = (props) => {
         />
       ) : (
         <div>Select an account to view transactions</div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
 import "./index.css";
 import App from "./App";
 import "./assets/main.css";
 
+axios.defaults.baseURL = process.env.PING_API_URL
 ReactDOM.render(
   <React.StrictMode>
     <App />

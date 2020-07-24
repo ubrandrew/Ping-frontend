@@ -14,7 +14,7 @@ const AccountsPage = (props) => {
       const authToken = await getAuthToken();
 
       axios
-        .get(`http://localhost:8000/bank_items`, {
+        .get(`bank_items`, {
           headers: { Authorization: `Bearer ${authToken}` },
         })
         .then((res) => {
